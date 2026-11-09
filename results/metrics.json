@@ -1,0 +1,106 @@
+{
+  "split": {
+    "start": "2022-01-01 00:00:00+00:00",
+    "train_end": "2022-09-01 10:45:00+00:00",
+    "calib_end": "2022-10-16 08:15:00+00:00",
+    "end": "2022-12-31 23:45:00+00:00",
+    "test_start": "2022-10-16 08:30:00+00:00"
+  },
+  "interval": {
+    "nominal": 0.8,
+    "cqr_shift_frac_of_capacity": -3.215023041902576e-06
+  },
+  "by_horizon_min": {
+    "15": {
+      "n": 260585,
+      "mae_seasonal_naive": 19.748243375482087,
+      "mae_persistence": 3.354410269201988,
+      "mae_gbm": 2.895077683925463,
+      "coverage_raw": 0.8325805399389834,
+      "coverage_calibrated": 0.804938887503118,
+      "mean_width_spaces": 8.200705922075846,
+      "gbm_vs_naive_pct": 85.3400749176518
+    },
+    "60": {
+      "n": 260206,
+      "mae_seasonal_naive": 19.739029845583882,
+      "mae_persistence": 11.598445078130405,
+      "mae_gbm": 7.777252066897392,
+      "coverage_raw": 0.8064456622829604,
+      "coverage_calibrated": 0.7918879656887235,
+      "mean_width_spaces": 19.710984015657754,
+      "gbm_vs_naive_pct": 60.59962354919202
+    },
+    "120": {
+      "n": 259799,
+      "mae_seasonal_naive": 19.730853467488327,
+      "mae_persistence": 21.797897605456527,
+      "mae_gbm": 14.205922511459411,
+      "coverage_raw": 0.7809845303484617,
+      "coverage_calibrated": 0.771738921242961,
+      "mean_width_spaces": 32.269585900471434,
+      "gbm_vs_naive_pct": 28.001479840355948
+    }
+  },
+  "overall": {
+    "n": 1561368,
+    "mae_seasonal_naive": 19.739658427737726,
+    "mae_persistence": 11.434878260602241,
+    "mae_gbm": 7.743471600376988,
+    "coverage_calibrated": 0.7928367944008075
+  },
+  "ablation_mae_q50_uncalibrated": {
+    "full_features": {
+      "15": 2.9093983870514246,
+      "60": 7.793929438990564,
+      "120": 14.237500089165575
+    },
+    "no_weather": {
+      "15": 3.460523531468215,
+      "60": 8.038166648526953,
+      "120": 14.543772396834829
+    },
+    "no_calendar": {
+      "15": 2.776743838625711,
+      "60": 7.778366777274198,
+      "120": 14.336216300132605
+    }
+  },
+  "full_definition": "free <= max(3, 3% of capacity proxy)",
+  "full_warning_window_min": 120,
+  "full_warning": {
+    "gbm": {
+      "warnings": 2000,
+      "precision": 0.91,
+      "events": 1165,
+      "recall": 0.5622317596566524,
+      "lead_median_min": 30.0,
+      "lead_mean_min": 47.31297709923664
+    },
+    "seasonal_naive": {
+      "warnings": 13709,
+      "precision": 0.48639579838062585,
+      "events": 1165,
+      "recall": 0.7090128755364807,
+      "lead_median_min": 120.0,
+      "lead_mean_min": 105.96246973365618
+    }
+  },
+  "guidance": {
+    "30": {
+      "cases": 665,
+      "hit_stay": 0.26766917293233083,
+      "hit_nearest": 0.7488721804511278,
+      "hit_most_free_now": 0.924812030075188,
+      "hit_forecast": 0.9218045112781955
+    },
+    "60": {
+      "cases": 1052,
+      "hit_stay": 0.19866920152091255,
+      "hit_nearest": 0.717680608365019,
+      "hit_most_free_now": 0.9182509505703422,
+      "hit_forecast": 0.9182509505703422
+    }
+  },
+  "test_origins": 7350
+}
