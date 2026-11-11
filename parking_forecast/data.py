@@ -12,7 +12,7 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-FEED_URL = "http://www.pls-zh.ch/plsFeed/rss"
+FEED_URL = "https://www.pls-zh.ch/plsFeed/rss"
 ARCHIVE_INDEX = "https://parkendd.de/dumps/"
 WEATHER_URL = (
     "https://archive-api.open-meteo.com/v1/archive?latitude=47.37&longitude=8.54"

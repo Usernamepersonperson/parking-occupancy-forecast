@@ -24,7 +24,7 @@ Mean absolute error in free spaces (lower is better):
 | 60 min | 19.74 | 11.60 | **7.78** | 61 % |
 | 120 min | 19.73 | 21.80 | **14.21** | 28 % |
 
-Seasonal naive is a weak baseline on this data (its error does not depend on the horizon). Persistence is the fair one to beat at short range, and the model is only about 13 % better than it at 15 minutes.
+Seasonal naive is a weak baseline on this data (its error does not depend on the horizon). Persistence is the fair one to beat at short range, and the model is only about 14 % better than it at 15 minutes (2.90 vs 3.35).
 
 80 % prediction interval (conformal calibration on the calibration weeks):
 
@@ -76,7 +76,7 @@ python -m parking_forecast collect         # poll the live feed every 5 min into
 python -m pytest -q -p no:asyncio
 ```
 
-The committed `data/` (1.7 MB: 15-minute free-space table, hourly weather, car-park anonymised coordinates) makes `demo` work offline.
+The committed `data/` (1.7 MB: 15-minute free-space table, hourly weather, street address and coordinates per numbered car park) makes `demo` work offline.
 
 ## How it works
 
@@ -100,10 +100,11 @@ flowchart LR
 
 ## Data sources
 
-- **Free spaces:** City of Zurich car-park guidance system, real-time feed `http://www.pls-zh.ch/plsFeed/rss`, listed on opendata.swiss and the city open data portal as "Parkleitsystem". **Licence: CC0 1.0** (the feed's own `copyright` field says its terms of use equal CC0, and the portal metadata says `cc-zero`). Commercial use is allowed and no attribution is required; credit is given here anyway.
+- **Free spaces:** City of Zurich car-park guidance system, real-time feed `https://www.pls-zh.ch/plsFeed/rss`, listed on opendata.swiss and the city open data portal as "Parkleitsystem". **Licence: CC0 1.0** (the feed's own `copyright` field says its terms of use equal CC0, and the portal metadata says `cc-zero`). Commercial use is allowed and no attribution is required; credit is given here anyway.
 - **History:** the feed only returns the current state. The open archive at https://parkendd.de/dumps/ (the city portal links to it as the public time series of this feed) stores one reading roughly every 5 minutes. This repo uses the 2022 files of the 36 car parks present in that year: 1 Jan to 31 Dec 2022, 35040 15-minute steps. The city portal text says these dumps may be downloaded and used without restriction; the archive itself does not publish a separate licence file.
-- **Weather:** Open-Meteo Historical Weather API (hourly 2 m temperature and precipitation at 47.37 N, 8.54 E), licence CC BY 4.0. Attribution: weather data by Open-Meteo.com.
-- **Coordinates:** taken from the archive's public metadata (street addresses and latitude/longitude); 5 of 36 car parks have none and are excluded from the guidance test. Car parks appear as `lot_01` to `lot_36`.
+- **Weather:** Open-Meteo Historical Weather API (hourly 2 m temperature and precipitation at 47.37 N, 8.54 E), licence [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Attribution: [weather data by Open-Meteo.com](https://open-meteo.com/). Open-Meteo builds this archive from reanalysis data including ERA5; contains modified Copernicus Climate Change Service information 2022. The committed `data/weather_2022.csv` is an extract (two variables, 2022 only) redistributed under the same CC BY 4.0 terms. The free Open-Meteo API is for non-commercial use only; `fetch` uses it for this non-commercial open-source project.
+- **Coordinates:** taken from the archive's public metadata (street addresses and latitude/longitude); 5 of 36 car parks have none and are excluded from the guidance test. Car parks appear as `lot_01` to `lot_36`; the committed data carries no facility names.
+- **Public holidays:** computed in code (fixed dates plus Easter-based dates for the canton of Zurich); no external data.
 - **Live feed check:** `collect` was run against the live feed on 9 Nov 2026, 01:54 to 02:34 UTC (10 polls, 36 car parks each). That short sample only confirms the parser works on today's feed. It is not used for any number above.
 
 ## What is not verified yet
