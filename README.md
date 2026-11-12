@@ -123,4 +123,4 @@ flowchart LR
 
 ## Licence
 
-MIT, Copyright (c) 2026 Victor Bonilla. See [LICENSE](LICENSE). Data keeps its own licences (see above).
+MIT, Copyright (c) 2026 VB-Builds. See [LICENSE](LICENSE). Data keeps its own licences (see above).
